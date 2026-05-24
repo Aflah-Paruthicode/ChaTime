@@ -8,6 +8,7 @@ const authRouter = require("./router/auth");
 const proffileRouter = require("./router/proffile");
 const requestRouter = require("./router/request");
 const userRouter = require("./router/user");
+const paymentRouter = require("./router/payment");
 
 require('./utils/cron_jobs')
 
@@ -27,6 +28,7 @@ app.use("/", authRouter);
 app.use("/profile", proffileRouter);
 app.use("/request", requestRouter);
 app.use("/user", userRouter);
+app.use('/payment', paymentRouter)
 
 connectDb()
   .then(() => {
