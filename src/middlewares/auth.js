@@ -4,7 +4,7 @@ const User = require("../model/user");
 const userAuth = async (req, res, next) => {
   try {
     const { token } = req.cookies;
-    if (!token) return res.status(401).send("Please login!")
+    if (!token) return res.status(401).send("Please login!");
 
     const decodedObj = await jwt.verify(token, "DEV@CHATIME$790");
 
@@ -12,7 +12,7 @@ const userAuth = async (req, res, next) => {
 
     const user = await User.findById({ _id: _id });
 
-    console.log(user)
+    console.log(user);
     if (!user) throw new Error("User not found");
     req.user = user;
     next();
@@ -21,7 +21,6 @@ const userAuth = async (req, res, next) => {
   }
 };
 
-
 module.exports = {
-  userAuth
-}
+  userAuth,
+};

@@ -1,10 +1,6 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
-const {
-  validateEditProffile,
-  validateCurrPassword,
-  validNewPassword,
-} = require("../utils/validation");
+const { validateEditProffile, validateCurrPassword, validNewPassword } = require("../utils/validation");
 const proffileRouter = express.Router();
 
 proffileRouter.get("/view", userAuth, async (req, res) => {
@@ -21,10 +17,10 @@ proffileRouter.get("/view", userAuth, async (req, res) => {
 });
 
 proffileRouter.post("/edit", userAuth, async (req, res) => {
-  console.log('heey')
+  console.log("heey");
   try {
     if (!validateEditProffile(req)) return res.status(401).send("Invalid edit request");
-    console.log('yesssssss yea')
+    console.log("yesssssss yea");
     let loggedInUser = req.user;
     Object.keys(req.body).forEach((key) => (loggedInUser[key] = req.body[key]));
 
@@ -39,8 +35,7 @@ proffileRouter.post("/edit", userAuth, async (req, res) => {
 proffileRouter.patch("/password", userAuth, async (req, res) => {
   try {
     if (!(await validateCurrPassword(req))) throw new Error("invalid password");
-    if (!(await validNewPassword(req)))
-      throw new Error("The new Password is not strong");
+    if (!(await validNewPassword(req))) throw new Error("The new Password is not strong");
 
     const loggedInUser = req.user;
     loggedInUser.save();

@@ -3,15 +3,7 @@ const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../model/connectionRequest");
 const User = require("../model/user");
 const userRouter = express.Router();
-const UserSafeData = [
-  "firstName",
-  "lastName",
-  "photoUrl",
-  "about",
-  "gender",
-  "skills",
-  "age"
-];
+const UserSafeData = ["firstName", "lastName", "photoUrl", "about", "gender", "skills", "age"];
 
 userRouter.get("/requests/received", userAuth, async (req, res) => {
   try {
@@ -76,12 +68,9 @@ userRouter.get("/feed", userAuth, async (req, res) => {
     });
 
     const users = await User.find({
-      $and: [
-        { _id: { $nin: Array.from(hideUsersFromFeed) } },
-        { _id: { $ne: loggedInUser._id } },
-      ],
+      $and: [{ _id: { $nin: Array.from(hideUsersFromFeed) } }, { _id: { $ne: loggedInUser._id } }],
     }).select(UserSafeData);
-    
+
     res.json({ data: users });
   } catch (err) {
     res.status(400).send("ERROR - " + err.message);

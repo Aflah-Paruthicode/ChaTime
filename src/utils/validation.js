@@ -1,4 +1,3 @@
-
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
@@ -16,18 +15,8 @@ const validateSignUpData = async (req) => {
 };
 
 const validateEditProffile = (req) => {
-  const allowedFields = [
-    "firstName",
-    "lastName",
-    "photoUrl",
-    "about",
-    "gender",
-    "skills",
-    "age"
-  ];
-  const isEditAllowed = Object.keys(req.body).every((feild) =>
-    allowedFields.includes(feild)
-  );
+  const allowedFields = ["firstName", "lastName", "photoUrl", "about", "gender", "skills", "age"];
+  const isEditAllowed = Object.keys(req.body).every((feild) => allowedFields.includes(feild));
   return isEditAllowed;
 };
 
@@ -39,14 +28,14 @@ const validateCurrPassword = async (req) => {
 
 const validNewPassword = async (req) => {
   const newPassword = req.body.newPassword;
-  if (!validator.isStrongPassword(newPassword)) return false
+  if (!validator.isStrongPassword(newPassword)) return false;
   req.user.password = await bcrypt.hash(newPassword, 10);
   return true;
-}
+};
 
 module.exports = {
   validateSignUpData,
   validateEditProffile,
   validateCurrPassword,
-  validNewPassword
+  validNewPassword,
 };

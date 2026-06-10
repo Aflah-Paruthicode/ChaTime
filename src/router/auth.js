@@ -8,13 +8,11 @@ const { userAuth } = require("../middlewares/auth");
 
 authRouter.post("/signup", async (req, res) => {
   try {
-    const { firstName, lastName, email, password, age, photoUrl, about, gender, skills } =
-      req.body;
+    const { firstName, lastName, email, password, age, photoUrl, about, gender, skills } = req.body;
     const passwordHash = await bcrypt.hash(password, 10);
     validateSignUpData(req);
     const isEmailUnique = await User.find({ email: email });
-    if (isEmailUnique.length !== 0)
-      throw new Error("Email is already registered");
+    if (isEmailUnique.length !== 0) throw new Error("Email is already registered");
     const user = new User({
       firstName,
       lastName,
@@ -24,7 +22,7 @@ authRouter.post("/signup", async (req, res) => {
       photoUrl,
       gender,
       about,
-      skills
+      skills,
     });
 
     const newUser = await user.save();
