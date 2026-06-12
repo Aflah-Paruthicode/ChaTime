@@ -41,4 +41,12 @@ paymentRouter.post("/create", userAuth, async (req, res) => {
   }
 });
 
+paymentRouter.post('/webhooks',userAuth, async (req, res) => {
+  try {
+
+  } catch (err) {
+
+  }
+})
+
 module.exports = paymentRouter;
